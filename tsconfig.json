@@ -10,6 +10,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
+    "noImplicitAny": false, // TS7016: Could not find declaration file
     "baseUrl": ".",
     "types": [
       "webpack-env"
@@ -31,9 +32,10 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx"
-  ],
+    "tests/**/*.tsx"   
+    ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/components/eventBuss.js"  
   ]
 }

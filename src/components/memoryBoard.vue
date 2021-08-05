@@ -34,8 +34,8 @@ export default Vue.extend({
        return{
            items: ["biedron.jpg", "bosak.jpg", "budka.jpg", "duda.jpg", "kaczynski3.jpg", "korwin.jpg", "macierewicz.jpg", "morawiecki.jpg", "obajtek.jpg", "stonoga.jpg", "trzaskowski.jpg", "tusk.jpg", "zandberg.jpg", "ziobro2.jpg", "braun.jpg"] as string[],
            board: [] as string[],
-           clickedPair: [] as string[],
-           pairedTable: [] as string[],
+           clickedPair: [] as ([number , string])[],
+           pairedTable: [] as ([number , string])[],
            points:  0 as number,
            moves:  0 as number,
            dis: false as boolean
@@ -60,7 +60,7 @@ export default Vue.extend({
 
        
     promptName(): void{
-      let x: string  = prompt("Podaj imie");
+      let x = String(prompt("Podaj imie"));
       Event.$emit("gamerName", x);
     },
       makeBoard():void{

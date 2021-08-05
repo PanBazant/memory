@@ -16,19 +16,19 @@ export default Vue.extend({
        return{
             paired: false ,
            clicked: false ,
+           freezed: false,
            pict: "logo.png"
            }
             },
   methods: {
     getImgUrl(pic: string) {
     return require('../assets/'+pic)
-    
     },
     xd(){
       console.log('../assets/'+this.fileName, "id", this.elemId);
     },
     show(): void{
-      if (this.clicked === false && this.paired === false){
+      if (this.clicked === false && this.paired === false && this.freezed === false){
       this.clicked = true;
       this.pict = this.fileName;
       Event.$emit("clickedItem", this.elemId, this.fileName);
@@ -40,6 +40,7 @@ export default Vue.extend({
    // }
     },
     unshow(id1:number, id2:number): void{
+      this.freezed = true
       if (this.elemId === id1 || this.elemId === id2){
         setTimeout(() => {
           this.pict = "logo.png"
@@ -47,6 +48,9 @@ export default Vue.extend({
         }, 2000);
         
       }
+      setTimeout(() => {
+          this.freezed= false;
+        }, 2000);
     },
      
     matched(id1: number, id2: number): void{
