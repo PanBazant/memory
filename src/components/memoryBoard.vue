@@ -1,20 +1,27 @@
  <template>
 
+         <div class="container container-fluid obwodka">
             <div class="container">
               <div class="row" style="justify-content: center" v-if="firstGame">
              <button class="col-4" v-if="!dis" v-on:click="makeBoard" style="" v-once>Start</button>
              <div :v-text="items"> </div>
               </div>
-
+          
               <div class="container">
+                 
                   <div class="row plansza"  >
+                    
                       <div class="col-2 pojemnik-na-obrazek" v-for="(item, index) in board" :key="index">
                         <memory-elem :elem-id="index" :file-name="item" >  </memory-elem>
                       </div>
+                      
                  </div>
+                 
             </div>
              
             </div>
+            </div>
+        
 </template>
 
 

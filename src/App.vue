@@ -4,7 +4,7 @@
   <div id="app" class="gra">
 
     
-
+<transition name="fade" mode="out-in" appear>
     <div class="container container-fluid statystyki">
       <div class="row"> 
         <div class="col-12 container"><p style="text-align: center" v-text="'Gracz: ' + gamer"></p></div>
@@ -22,66 +22,27 @@
         <div class="col-4 container"> <p style="text-align: right">Gracz2: Punkty</p> </div> -->
       </div>
     </div>
-
+ </transition>
    
-    <div class="container container-fluid obwodka">
-        <component :is="view" :points="points" :moves="moves" :first-game="firstGame"></component>
-        <!-- <div class="container">
-            <div class="row plansza">
-              <div class="col-2 pojemnik-na-obrazek">
-                <div class="obrazek"><img src="./assets/korwin.jpg" class="obrazek" alt="kurwa"></div>
-              </div>
-              <div class="col-2 pojemnik-na-obrazek">
-                <div class="obrazek"><img src="./assets/tusk.jpg" class="obrazek" alt="kurwa"></div>
-              </div>
-              <div class="col-2 pojemnik-na-obrazek">
-                <div class="obrazek">kot</div>
-              </div>
-              <div class="col-2 pojemnik-na-obrazek">
-                <div class="obrazek">kot</div>
-              </div>
-              <div class="col-2 pojemnik-na-obrazek">
-                <div class="obrazek">kot</div>
-              </div>
-              <div class="col-2 pojemnik-na-obrazek">
-                <div class="obrazek">kot</div>
-              </div>
-
-              <div class="col-2 pojemnik-na-obrazek">
-                <div class="obrazek">kot</div>
-              </div>
-              <div class="col-2 pojemnik-na-obrazek">
-                <div class="obrazek">kot</div>
-              </div>
-              <div class="col-2 pojemnik-na-obrazek">
-                <div class="obrazek">kot</div>
-              </div>
-              <div class="col-2 pojemnik-na-obrazek">
-                <div class="obrazek">kot</div>
-              </div>
-              <div class="col-2 pojemnik-na-obrazek">
-                <div class="obrazek">kot</div>
-              </div>
-              <div class="col-2 pojemnik-na-obrazek">
-                <div class="obrazek">kot</div>
-              </div>
-              <i class="nes-icon is-large heart"></i>
-
-            </div>
-            
-        </div> -->
-        
-    </div>
-
     
+      <transition name="fade" mode="out-in" appear>
+        <component :is="view" :first-game="firstGame"></component>
+      </transition>
+        
+      <transition name="fade" mode="out-in">
+    <component :is="winning"  :points="points" :moves="moves"></component>
+    </transition>
+    <login></login>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 //import memoryElem from './components/memoryElem.vue'
+import login from './components/login.vue'
 import memoryBoard from './components/memoryBoard.vue'
 import winning from './components/winning.vue'
+import restartComponent from './components/restartComponent.vue'
 import {Event} from './components/eventBuss.js'
 
 export default Vue.extend({
@@ -89,15 +50,19 @@ export default Vue.extend({
   components: { 
   //  memoryElem,
     memoryBoard,
-    winning
+    winning,
+    restartComponent,
+    login
    },
    data: function (){ 
       return {
           view: "memory-board",
+          winning: "restart-component",
           gamer: "" as string,
           points: 0 as number,
           moves: 0 as number,
-          firstGame: true as boolean
+          firstGame: true as boolean,
+          x: false,
       }
 
    },
@@ -112,13 +77,18 @@ export default Vue.extend({
       this.gamer = x;
     },
     changeComponent():void{
-      this.view = "winning"
+      //this.view = "winning"
+      this.winning = "winning"
     },
     restart():void{
-      this.view = "memory-board";
+      this.view = "restart-component";
+      this.winning = "restart-component";
       this.points = 0;
       this.moves = 0;
       this.firstGame = false;
+    },
+    restartComponent():void{
+       this.view = "memory-board";
     }
    },
    created: function(){
@@ -127,6 +97,7 @@ export default Vue.extend({
      Event.$on("gamerName", this.setGamerName)
      Event.$on("win",this.changeComponent)
      Event.$on("restart", this.restart)
+      Event.$on("restartComponent", this.restartComponent)
    }
 });
 </script>
@@ -141,6 +112,15 @@ export default Vue.extend({
       src: local('Press Start 2P'), url('./assets/fonts/PressStart2P-Regular.ttf')  format('truetype'),
     }
 
+
+ .fade-enter-active,
+        .fade-leave-active{
+            transition: opacity 0.5s ease-in-out;
+        }
+        .fade-enter,
+        .fade-leave-to{
+            opacity: 0;
+        }
 
 
 .gra{

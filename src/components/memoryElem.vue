@@ -1,7 +1,7 @@
  <template>
-             
+ <transition name="fade" mode="out-in" appear>
              <div class="obrazek"><img :src="getImgUrl(pict)" class="obrazek" alt="x" v-on:click="show"></div> 
-            
+ </transition>
 </template>
 
 
