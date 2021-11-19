@@ -32,14 +32,14 @@
       <transition name="fade" mode="out-in">
     <component :is="winning"  :points="points" :moves="moves"></component>
     </transition>
-    <login></login>
+  <registration></registration>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 //import memoryElem from './components/memoryElem.vue'
-import login from './components/login.vue'
+import registration from './components/registration.vue'
 import memoryBoard from './components/memoryBoard.vue'
 import winning from './components/winning.vue'
 import restartComponent from './components/restartComponent.vue'
@@ -52,10 +52,13 @@ export default Vue.extend({
     memoryBoard,
     winning,
     restartComponent,
-    login
+    registration
    },
    data: function (){ 
       return {
+          users: [
+            {"name": "test", "password": "test", "age": 19}
+          ],
           view: "memory-board",
           winning: "restart-component",
           gamer: "" as string,
@@ -80,6 +83,11 @@ export default Vue.extend({
       //this.view = "winning"
       this.winning = "winning"
     },
+
+    register: function(name: string, password: string, age: number): void{
+      this.users.push({name, password, age})
+    },
+
     restart():void{
       this.view = "restart-component";
       this.winning = "restart-component";
@@ -97,7 +105,8 @@ export default Vue.extend({
      Event.$on("gamerName", this.setGamerName)
      Event.$on("win",this.changeComponent)
      Event.$on("restart", this.restart)
-      Event.$on("restartComponent", this.restartComponent)
+    Event.$on("restartComponent", this.restartComponent)
+    Event.$on("register", this.register)
    }
 });
 </script>

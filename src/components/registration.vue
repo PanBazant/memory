@@ -2,24 +2,17 @@
 
    <div>
         <b-modal v-model="modalShow" block hide-footer hide-header no-close-on-backdrop no-close-on-esc>
-            <h1>Formularz</h1>
+            <h1>Rejestracja</h1>
         <form action="#" class="form-horizontal" @submit.prevent="submit">
             <div class="form-group">
                 <div class="col-2">
-                    <label class="form-label">Imię</label>
+                    <label class="form-label">Login</label>
                 </div>
                 <div class="col-3">
-                    <input class="form-input" type="text" placeholder="Podaj swoje imię" v-model.trim.lazy="firstName">
+                    <input class="form-input" type="text" placeholder="Podaj swój login" v-model.trim.lazy="name">
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-2">
-                    <label class="form-label">Nazwisko</label>
-                </div>
-                <div class="col-3">
-                    <input class="form-input" type="text" placeholder="Podaj swoje nazwisko" v-model.trim.lazy="lastName">
-                </div>
-            </div>
+
             <div class="form-group">
                 <div class="col-2">
                     <label class="form-label">Wiek</label>
@@ -44,21 +37,7 @@
                     <input class="form-input" type="password" placeholder="Powtórz hasło" v-model.number="passwordRepeat">
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-2">
-                    <label class="form-label">Płeć</label>
-                </div>
-                <div class="col-3">
-                    <label class="form-radio">
-                        <input type="radio" value="k" v-model="gender">
-                        <i class="form-icon"></i> żeńska
-                    </label>
-                    <label class="form-radio">
-                        <input type="radio" value="m" v-model="gender">
-                        <i class="form-icon"></i> męska
-                    </label>
-                </div>
-            </div>
+         
             <div class="form-group">
                 <label class="form-switch">
                     <input type="checkbox" v-model="terms">
@@ -68,8 +47,8 @@
 
 
             <div class="col-5">
-                <button class="btn btn-primary float-right" :disabled="!isFilled || !terms">Wyślij</button>
-                <p> Twoje dane {{fullName}}</p>
+                <button class="btn btn-primary float-right" @click.prevent="submit" :disabled="!isFilled || !terms">Wyślij</button>
+               
             </div>
 
          
@@ -90,30 +69,30 @@ export default Vue.extend({
   data: function(){
        return{
                 modalShow: true,
-                 firstName: "" as string,
-                lastName: "",
-                age: 0,
+                name: "" as string,
+                age: "",
                 password: "",
                 passwordRepeat: "",
-                gender: "",
                 terms: ""
            }
             },
   methods: {
     
+        submit: function(){
+            console.log("submit")
+            this.modalShow = false;
+            Event.$emit("register", this.name, this.password, this.age)
+        }
 
-    
     
     },
      computed: {
-            fullName: function(): string{
-                return    this.firstName + " " + this.lastName;
-            },
+           
             isFilled: function(): boolean{
                 if(this.password !== this.passwordRepeat){
                     console.log("Hasła nie są zgodne")
                 }
-                return this.firstName && this.lastName && this.age >= 18 && this.password === this.passwordRepeat;
+                return Boolean(this.name && parseInt(this.age) >= 18 && this.password === this.passwordRepeat);
             },
         },
      
