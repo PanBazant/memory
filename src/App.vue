@@ -34,7 +34,7 @@
     </transition>
     
   <login :users="users"></login>
-     
+  <user-info :user-logged="userLogged"></user-info>
   </div>
 </template>
 
@@ -43,6 +43,7 @@ import Vue from 'vue';
 //import memoryElem from './components/memoryElem.vue'
 import registration from './components/registration.vue'
 import login from './components/login.vue'
+import userInfo from './components/userInfo.vue'
 import memoryBoard from './components/memoryBoard.vue'
 import winning from './components/winning.vue'
 import restartComponent from './components/restartComponent.vue'
@@ -56,7 +57,8 @@ export default Vue.extend({
     winning,
     restartComponent,
     registration,
-    login
+    login,
+    userInfo
    },
    data: function (){ 
       return {
@@ -100,6 +102,7 @@ export default Vue.extend({
 
     login: function(id: number){
       this.userLogged = this.users[id]
+      this.gamer =  this.users[id].name
     },
 
     restart():void{

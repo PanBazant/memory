@@ -81,7 +81,7 @@ export default Vue.extend({
          // this.board.push(x)
           //console.log("dodano", x)
           if (this.firstGame === true){
-          this.promptName();
+         // this.promptName();
           }
           let i = 0;
           while (i < this.items.length*2) {
