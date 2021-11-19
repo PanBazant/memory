@@ -27,7 +27,7 @@
 
 
             <div class="col-5">
-                <button class="btn btn-primary float-right" @click.prevent="userValidation" >Zaloguj się</button>
+                <button class="btn btn-primary float-right" @click.prevent="userValidation" :disabled="!noEmptyFields" >Zaloguj się</button>
                
             </div>
 
@@ -49,14 +49,13 @@ export default Vue.extend({
   data: function(){
        return{
                 modalShow: true,
-                name: "" as string,
+                name: "",
                 password: "",
                
            }
             },
   methods: {
     
-
         userValidation: function(){
             for(let i = 0; i < this.users.length; i++){
                     if(this.name === this.users[i].name && this.password === this.users[i].password){
@@ -69,11 +68,13 @@ export default Vue.extend({
             console.log("Błędny login lub hasło")
             }
         },
-       
 
-    
     },
-    
+   computed:{
+         noEmptyFields: function(): boolean{
+            return Boolean(this.name && this.password)
+   }
+   }
   
 })
 </script>
