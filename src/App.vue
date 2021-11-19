@@ -35,12 +35,16 @@
     
   <login :users="users"></login>
   <user-info :user-logged="userLogged"></user-info>
+  <main-menu></main-menu>
   </div>
+
+  
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 //import memoryElem from './components/memoryElem.vue'
+import mainMenu from './components/mainMenu.vue'
 import registration from './components/registration.vue'
 import login from './components/login.vue'
 import userInfo from './components/userInfo.vue'
@@ -58,7 +62,8 @@ export default Vue.extend({
     restartComponent,
     registration,
     login,
-    userInfo
+    userInfo,
+    mainMenu
    },
    data: function (){ 
       return {
