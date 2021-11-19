@@ -25,7 +25,7 @@
 
    
     <div class="container container-fluid obwodka">
-        <memory-board></memory-board>
+        <component :is="view" :points="points" :moves="moves" :first-game="firstGame"></component>
         <!-- <div class="container">
             <div class="row plansza">
               <div class="col-2 pojemnik-na-obrazek">
@@ -72,7 +72,7 @@
         </div> -->
         
     </div>
-    
+
     
   </div>
 </template>
@@ -81,19 +81,23 @@
 import Vue from 'vue';
 //import memoryElem from './components/memoryElem.vue'
 import memoryBoard from './components/memoryBoard.vue'
+import winning from './components/winning.vue'
 import {Event} from './components/eventBuss.js'
 
 export default Vue.extend({
   name: 'App',
   components: { 
   //  memoryElem,
-    memoryBoard
+    memoryBoard,
+    winning
    },
    data: function (){ 
       return {
+          view: "memory-board",
           gamer: "" as string,
           points: 0 as number,
-          moves: 0 as number
+          moves: 0 as number,
+          firstGame: true as boolean
       }
 
    },
@@ -106,12 +110,23 @@ export default Vue.extend({
     },
     setGamerName(x: string){
       this.gamer = x;
+    },
+    changeComponent():void{
+      this.view = "winning"
+    },
+    restart():void{
+      this.view = "memory-board";
+      this.points = 0;
+      this.moves = 0;
+      this.firstGame = false;
     }
    },
    created: function(){
      Event.$on("moves", this.addMoves);
      Event.$on("points", this.addPoint);
      Event.$on("gamerName", this.setGamerName)
+     Event.$on("win",this.changeComponent)
+     Event.$on("restart", this.restart)
    }
 });
 </script>

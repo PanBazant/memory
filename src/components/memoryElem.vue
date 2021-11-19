@@ -1,6 +1,6 @@
  <template>
              
-             <div class="obrazek"><img :src="getImgUrl(pict)" class="obrazek" alt="kurwa" v-on:click="show"></div> 
+             <div class="obrazek"><img :src="getImgUrl(pict)" class="obrazek" alt="x" v-on:click="show"></div> 
             
 </template>
 

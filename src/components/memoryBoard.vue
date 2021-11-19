@@ -1,6 +1,7 @@
  <template>
+
             <div class="container">
-              <div class="row" style="justify-content: center">
+              <div class="row" style="justify-content: center" v-if="firstGame">
              <button class="col-4" v-if="!dis" v-on:click="makeBoard" style="" v-once>Start</button>
              <div :v-text="items"> </div>
               </div>
@@ -29,10 +30,10 @@ export default Vue.extend({
    
     memoryElem
   },
-  
+  props: ["firstGame"],
   data: function(){
        return{
-           items: ["biedron.jpg", "bosak.jpg", "budka.jpg", "duda.jpg", "kaczynski3.jpg", "korwin.jpg", "macierewicz.jpg", "morawiecki.jpg", "obajtek.jpg", "stonoga.jpg", "trzaskowski.jpg", "tusk.jpg", "zandberg.jpg", "ziobro2.jpg", "braun.jpg"] as string[],
+           items: ["biedron.jpg", "bosak.jpg"] as string[],
            board: [] as string[],
            clickedPair: [] as ([number , string])[],
            pairedTable: [] as ([number , string])[],
@@ -41,6 +42,8 @@ export default Vue.extend({
            dis: false as boolean
            }
             },
+
+  
   methods: {
       makeElem():string{
         let randomElement:string = this.items[Math.floor(Math.random() * this.items.length)];
@@ -70,7 +73,9 @@ export default Vue.extend({
          // if (this.count(x) < 2){
          // this.board.push(x)
           //console.log("dodano", x)
+          if (this.firstGame === true){
           this.promptName();
+          }
           let i = 0;
           while (i < this.items.length*2) {
             let x: string = this.makeElem();
@@ -92,7 +97,7 @@ export default Vue.extend({
           Event.$emit("points", this.points);
           Event.$emit("matched", this.clickedPair[0][0], this.clickedPair[1][0])
           if(this.board.length === this.pairedTable.length){
-            alert("WYGRAŁEŚ")
+            this.win()
           }
         } else {
             this.moves++;
@@ -112,14 +117,22 @@ export default Vue.extend({
         
         
         
-      }
-  
+      },
+      win():void{
+         Event.$emit("win")
+    
+       
+      },
+      
     
     
     },
     created: function(){
         //this.makeElem();
         Event.$on("clickedItem", this.clickedItem)
+        if( this.firstGame === false){
+          this.makeBoard()
+        }
     }
   });
 
