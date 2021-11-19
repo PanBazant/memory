@@ -1,6 +1,7 @@
 <template>
 
    <div>
+       
         <b-modal v-model="modalShow" block hide-footer hide-header no-close-on-backdrop no-close-on-esc>
             <h1>Rejestracja</h1>
         <form action="#" class="form-horizontal" @submit.prevent="submit">
