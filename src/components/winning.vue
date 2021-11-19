@@ -2,7 +2,7 @@
   <div>
     <!-- <b-button @click="modalShow = !modalShow">Open Modal</b-button> -->
 
-    <b-modal v-model="modalShow" block hide-footer hide-header>
+    <b-modal v-model="modalShow" block hide-footer hide-header no-close-on-backdrop no-close-on-esc>
         <div class="container container-fluid"> 
            
 
