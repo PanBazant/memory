@@ -34,7 +34,7 @@
     <component :is="winning" :name="name" :view="view" :points="points"  :moves="moves"></component>
     </transition>
  
- 
+    
   </div>
 
   
@@ -43,6 +43,7 @@
 <script lang="ts">
 import Vue from 'vue';
 //import memoryElem from './components/memoryElem.vue'
+import mainMenu from './components/mainMenu.vue'
 import navigation from './components/navigation.vue'
 import registration from './components/registration.vue'
 import login from './components/login.vue'
@@ -62,7 +63,8 @@ export default Vue.extend({
     registration,
     login,
     userInfo,
-   navigation
+   navigation,
+   mainMenu
    },
    data: function (){ 
       return {
@@ -71,7 +73,7 @@ export default Vue.extend({
             {"id": 0 , "name": "test", "password": "test", "age": 19}
           ],
           userLogged: {},
-          view: "memory-board",
+          view: "main-menu",
           viewRestore: "memory-board",
           winning: "restart-component",
           winningRestore: "winning",
@@ -116,10 +118,20 @@ export default Vue.extend({
     logout: function(){
       this.userLogged = {},
       this.gamer = ""
+      this.mainMenu()
     },
 
     displayProfile: function(){
       this.view = "user-info"
+    },
+
+    memoryGame: function(){
+      this.view = "memory-board"
+    },
+    mainMenu: function(){
+      this.view = "main-menu"
+      this.points = 0;
+      this.moves = 0;
     },
     restart():void{
       this.view = "restart-component";
@@ -144,6 +156,8 @@ export default Vue.extend({
     Event.$on("login", this.login)
      Event.$on("logout", this.logout)
      Event.$on("displayProfile", this.displayProfile )
+     Event.$on("memory", this.memoryGame)
+     Event.$on("mainMenu", this.mainMenu)
    }
 });
 </script>

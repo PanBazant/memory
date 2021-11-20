@@ -17,7 +17,7 @@
                 </b-row>
                 <b-row>
                 
-                <button @click="modalShow=false">Zakończ gre</button>
+                <button @click="endGame">Zakończ gre</button>
                 </b-row>
             </b-col>
             </transition>
@@ -42,8 +42,9 @@ export default Vue.extend({
            }
             },
   methods: {
-      closeModal: function(){
+      endGame: function(){
           this.modalShow = false;
+          Event.$emit("mainMenu")
       },
      restart: function(){
          this.modalShow=false
