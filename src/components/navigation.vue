@@ -30,9 +30,9 @@
             <em>{{userLogged.name}}</em>
           </template>
           <b-dropdown-item href="#">Profile</b-dropdown-item>
-          <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+          <b-dropdown-item href="#" @click="logout">Sign Out</b-dropdown-item>
         </b-nav-item-dropdown>
-        <b-nav-item>
+        <b-nav-item v-else>
           <b-button @click="login">Zaloguj się</b-button>
           <b-button @click="registration">Zarejestruj się</b-button>
         </b-nav-item>
@@ -76,6 +76,9 @@ export default Vue.extend({
       },
       modalTypeFree: function(){
         this.modalType = "restartComponent"
+      },
+      logout: function(){
+        Event.$emit("logout")
       }
     
     },

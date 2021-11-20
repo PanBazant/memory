@@ -107,11 +107,17 @@ export default Vue.extend({
       } 
 
       this.users.push({id ,name, password, age})
+      this.login(id)
     },
 
     login: function(id: number){
       this.userLogged = this.users[id]
       this.gamer =  this.users[id].name
+    },
+
+    logout: function(){
+      this.userLogged = {},
+      this.gamer = ""
     },
 
     restart():void{
@@ -135,6 +141,7 @@ export default Vue.extend({
     Event.$on("restoreComponentApp", this.restoreComponent)
     Event.$on("register", this.register)
     Event.$on("login", this.login)
+     Event.$on("logout", this.logout)
    }
 });
 </script>
