@@ -36,7 +36,9 @@ export default Vue.extend({
     },
     show: function(){
         this.pict = this.pict2;
+          setTimeout(() => {
         Event.$emit("memory")
+            }, 500);
     }
     },
      
