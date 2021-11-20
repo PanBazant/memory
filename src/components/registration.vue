@@ -83,6 +83,7 @@ export default Vue.extend({
             console.log("submit")
             this.modalShow = false;
             Event.$emit("register", this.name, this.password, this.age)
+            Event.$emit("registerFree")
         }
 
     

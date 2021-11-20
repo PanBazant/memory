@@ -3,7 +3,8 @@
 <template>
   <div id="app" class="gra">
 
-    
+     <navigation :user-logged="userLogged" :users="users"></navigation>
+
 <transition name="fade" mode="out-in" appear>
     <div class="container container-fluid statystyki">
       <div class="row"> 
@@ -26,16 +27,16 @@
    
     
       <transition name="fade" mode="out-in" appear>
-        <component :is="view" :first-game="firstGame"></component>
+        <component :is="view" :name="name" :view="viewRestore" :first-game="firstGame"></component>
       </transition>
         
       <transition name="fade" mode="out-in">
-    <component :is="winning"  :points="points" :moves="moves"></component>
+    <component :is="winning" :name="name" :view="view" :points="points"  :moves="moves"></component>
     </transition>
     
-  <login :users="users"></login>
+  <!-- <login :users="users"></login> -->
   <user-info :user-logged="userLogged"></user-info>
-  <main-menu></main-menu>
+ 
   </div>
 
   
@@ -44,7 +45,7 @@
 <script lang="ts">
 import Vue from 'vue';
 //import memoryElem from './components/memoryElem.vue'
-import mainMenu from './components/mainMenu.vue'
+import navigation from './components/navigation.vue'
 import registration from './components/registration.vue'
 import login from './components/login.vue'
 import userInfo from './components/userInfo.vue'
@@ -63,16 +64,19 @@ export default Vue.extend({
     registration,
     login,
     userInfo,
-    mainMenu
+   navigation
    },
    data: function (){ 
       return {
+          name: 'App',
           users: [
             {"id": 0 , "name": "test", "password": "test", "age": 19}
           ],
           userLogged: {},
           view: "memory-board",
+          viewRestore: "memory-board",
           winning: "restart-component",
+          winningRestore: "winning",
           gamer: "" as string,
           points: 0 as number,
           moves: 0 as number,
@@ -117,8 +121,9 @@ export default Vue.extend({
       this.moves = 0;
       this.firstGame = false;
     },
-    restartComponent():void{
-       this.view = "memory-board";
+    restoreComponent(view):void{
+       this.view = view;
+       console.log(this.view)
     }
    },
    created: function(){
@@ -127,7 +132,7 @@ export default Vue.extend({
      Event.$on("gamerName", this.setGamerName)
      Event.$on("win",this.changeComponent)
      Event.$on("restart", this.restart)
-    Event.$on("restartComponent", this.restartComponent)
+    Event.$on("restoreComponentApp", this.restoreComponent)
     Event.$on("register", this.register)
     Event.$on("login", this.login)
    }
@@ -156,7 +161,7 @@ export default Vue.extend({
 
 
 .gra{
-  padding-top: 3%;
+  /* padding-top: 3%; */
 }
 
 .plansza {

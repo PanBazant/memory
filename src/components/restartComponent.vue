@@ -13,7 +13,7 @@ import {Event} from './eventBuss.js';
 
 export default Vue.extend({
   name: 'restartComponent',
-  
+  props: ["view", "name"],
   data: function(){
        return{
            
@@ -27,9 +27,13 @@ export default Vue.extend({
     },
      
     created: function(){
-      
-         Event.$emit("restartComponent")
-        
+        console.log(this.view)
+        // if (this.name === "navigation"){
+        //     Event.$emit("restoreComponentNavigation", this.view)
+        // }
+        if (this.name === "App"){
+            Event.$emit("restoreComponentApp", this.view)
+        }
     }
 })
 </script>

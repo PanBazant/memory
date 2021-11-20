@@ -64,9 +64,7 @@ export default Vue.extend({
                          break;
                     }
                 }
-            if(this.modalShow === true){
-            console.log("Błędny login lub hasło")
-            }
+            Event.$emit("loginFree")
         },
 
     },
