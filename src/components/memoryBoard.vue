@@ -54,7 +54,10 @@ export default Vue.extend({
   methods: {
       clear: function(){
         this.board = []
-        this.clickedPair = []
+        while(this.clickedPair.length > 0){
+          console.log("x")
+          this.clickedPair.pop()
+        }
         this.pairedTable = []
         this.points = 0;
         this.moves = 0;
@@ -88,6 +91,7 @@ export default Vue.extend({
          // if (this.count(x) < 2){
          // this.board.push(x)
           //console.log("dodano", x)
+           
           if (this.firstGame === true){
          // this.promptName();
           }
@@ -124,6 +128,7 @@ export default Vue.extend({
       },
 
       clickedItem(id: number, fileName: string){
+       
         this.clickedPair.push([id, fileName])
         if (this.clickedPair.length >= 2){
           this.match()
@@ -142,14 +147,30 @@ export default Vue.extend({
     
     
     },
+ 
     created: function(){
         //this.makeElem();
-        this.clear()
+       
+        console.log("memory-board created")
+        console.log(this.clickedPair)
+        console.log(this.clickedPair.length)
+       
         Event.$on("clickedItem", this.clickedItem)
         if( this.firstGame === false){
+        
           this.makeBoard()
+        
+          
         }
-    }
+    },
+    beforeDestroy: function(){
+      this.clear()
+      this.$forceUpdate 
+      Event.$off("clickedItem", this.clickedItem)
+      console.log("clearing")
+       console.log(this.clickedPair)
+        console.log(this.clickedPair.length)
+    },
   });
 
 </script>

@@ -43,7 +43,7 @@ export default Vue.extend({
             },
   methods: {
       endGame: function(){
-          this.modalShow = false;
+         // this.modalShow = false;
           Event.$emit("mainMenu")
       },
      restart: function(){

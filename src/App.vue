@@ -31,7 +31,7 @@
       </transition>
         
       <transition name="fade" mode="out-in">
-    <component :is="winning" :name="name" :view="view" :points="points"  :moves="moves"></component>
+    <component :is="winning"  :view="view" :points="points"  :moves="moves"></component>
     </transition>
  
     
@@ -80,7 +80,7 @@ export default Vue.extend({
           gamer: "" as string,
           points: 0 as number,
           moves: 0 as number,
-          firstGame: true as boolean,
+          firstGame: false as boolean,
           x: false,
       }
 
@@ -131,7 +131,7 @@ export default Vue.extend({
     mainMenu: function(){
       this.restart()
       this.view = "main-menu"
-     this.firstGame = true
+     this.firstGame = false
     },
     restart():void{
       this.view = "restart-component";

@@ -37,6 +37,9 @@ export default Vue.extend({
       if (this.clicked === false && this.paired === false && this.freezed === false){
       this.clicked = true;
       this.pict = this.fileName;
+      console.log("obrazek")
+      console.log(this.elemId)
+      console.log(this.fileName)
       Event.$emit("clickedItem", this.elemId, this.fileName);
      
     }// else {
@@ -74,5 +77,6 @@ export default Vue.extend({
       Event.$on("matched", this.matched)
 
   }
+ 
 })
 </script>
