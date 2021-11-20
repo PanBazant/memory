@@ -29,7 +29,7 @@
           <template #button-content>
             <em>{{userLogged.name}}</em>
           </template>
-          <b-dropdown-item href="#">Profile</b-dropdown-item>
+          <b-dropdown-item href="#" @click="displayProfile">Profile</b-dropdown-item>
           <b-dropdown-item href="#" @click="logout">Sign Out</b-dropdown-item>
         </b-nav-item-dropdown>
         <b-nav-item v-else>
@@ -79,8 +79,11 @@ export default Vue.extend({
       },
       logout: function(){
         Event.$emit("logout")
+      },
+      displayProfile: function(){
+        Event.$emit("displayProfile")
       }
-    
+
     },
     created: function(){
       Event.$on("loginFree", this.modalTypeFree);

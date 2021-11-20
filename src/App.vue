@@ -27,15 +27,13 @@
    
     
       <transition name="fade" mode="out-in" appear>
-        <component :is="view" :name="name" :view="viewRestore" :first-game="firstGame"></component>
+        <component :is="view" :name="name" :view="viewRestore" :first-game="firstGame" :user-logged="userLogged"></component>
       </transition>
         
       <transition name="fade" mode="out-in">
     <component :is="winning" :name="name" :view="view" :points="points"  :moves="moves"></component>
     </transition>
-    
-  <!-- <login :users="users"></login> -->
-  <user-info :user-logged="userLogged"></user-info>
+ 
  
   </div>
 
@@ -120,6 +118,9 @@ export default Vue.extend({
       this.gamer = ""
     },
 
+    displayProfile: function(){
+      this.view = "user-info"
+    },
     restart():void{
       this.view = "restart-component";
       this.winning = "restart-component";
@@ -142,6 +143,7 @@ export default Vue.extend({
     Event.$on("register", this.register)
     Event.$on("login", this.login)
      Event.$on("logout", this.logout)
+     Event.$on("displayProfile", this.displayProfile )
    }
 });
 </script>
