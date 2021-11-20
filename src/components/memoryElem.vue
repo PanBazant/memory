@@ -21,6 +21,12 @@ export default Vue.extend({
            }
             },
   methods: {
+    clear: function(){
+            this.paired = false 
+           this.clicked = false 
+           this.freezed = false
+           this.pict= "logo.png"
+    },
     getImgUrl(pic: string) {
     return require('../assets/'+pic)
     },
@@ -63,6 +69,7 @@ export default Vue.extend({
     
     },
     created: function() {
+      this.clear()
       Event.$on("unshow", this.unshow);
       Event.$on("matched", this.matched)
 

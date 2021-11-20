@@ -52,6 +52,14 @@ export default Vue.extend({
 
   
   methods: {
+      clear: function(){
+        this.board = []
+        this.clickedPair = []
+        this.pairedTable = []
+        this.points = 0;
+        this.moves = 0;
+        this.dis = false;
+      },
       makeElem():string{
         let randomElement:string = this.items[Math.floor(Math.random() * this.items.length)];
         return randomElement
@@ -136,6 +144,7 @@ export default Vue.extend({
     },
     created: function(){
         //this.makeElem();
+        this.clear()
         Event.$on("clickedItem", this.clickedItem)
         if( this.firstGame === false){
           this.makeBoard()

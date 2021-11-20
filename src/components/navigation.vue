@@ -2,7 +2,7 @@
 
   <div>
   <b-navbar toggleable="lg" type="dark" variant="info">
-    <b-navbar-brand href="#">NavBar</b-navbar-brand>
+    <b-navbar-brand href="#" @click="mainMenu">NavBar</b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -82,6 +82,9 @@ export default Vue.extend({
       },
       displayProfile: function(){
         Event.$emit("displayProfile")
+      },
+      mainMenu: function(){
+        Event.$emit("mainMenu")
       }
 
     },

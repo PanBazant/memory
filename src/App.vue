@@ -129,9 +129,9 @@ export default Vue.extend({
       this.view = "memory-board"
     },
     mainMenu: function(){
+      this.restart()
       this.view = "main-menu"
-      this.points = 0;
-      this.moves = 0;
+     this.firstGame = true
     },
     restart():void{
       this.view = "restart-component";
